@@ -19,12 +19,12 @@ async function authenticateUser(request: NextRequest) {
 
 // GET: Fetch single todo by ID
 export async function GET(
-  request: NextRequest,
-  { params }: { params: { id: string } }
+  request: NextRequest,  
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const userId = await authenticateUser(request)
-    const { id } = params
+    const { id } = await params
 
     const todo = await prisma.todo.findFirst({
       where: {
@@ -65,11 +65,11 @@ export async function GET(
 // PUT: Update todo
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const userId = await authenticateUser(request)
-    const { id } = params
+    const { id } = await params
     const body: UpdateTodoData = await request.json()
     const { title, description, completed, priority } = body
 
@@ -142,11 +142,11 @@ export async function PUT(
 // DELETE: Delete todo
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const userId = await authenticateUser(request)
-    const { id } = params
+    const { id } = await params
 
     // Check if todo exists and belongs to user
     const existingTodo = await prisma.todo.findFirst({
