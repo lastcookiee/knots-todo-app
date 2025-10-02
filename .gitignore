@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# prisma generated files
+/src/generated/prisma
+
+# learning guides (exclude from deployment)
+FULL-STACK-LEARNING-GUIDE.md
+QUICK-REFERENCE-GUIDE.md
